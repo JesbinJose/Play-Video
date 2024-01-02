@@ -1,3 +1,1 @@
-class PlayVideoController{
-  
-}
+class PlayVideoController {}
