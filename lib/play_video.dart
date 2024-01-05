@@ -1,9 +1,7 @@
 library play_video;
 
 import 'package:flutter/widgets.dart';
-import 'package:play_video/player.dart';
-import 'models/models.dart';
-export 'models/models.dart';
+import 'package:play_video/models/play_video_controller/play_video_controller.dart';
 
 class PlayVideo extends StatelessWidget {
   const PlayVideo({
@@ -14,7 +12,8 @@ class PlayVideo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PlayVideoController con = PlayVideoController.multi();
     // main widget
-    return Player(controller: controller);
+    return const SizedBox();
   }
 }

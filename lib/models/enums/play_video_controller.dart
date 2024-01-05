@@ -1,0 +1,4 @@
+enum PlayVideoControllerType{
+  multi,
+  single,
+}

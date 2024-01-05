@@ -1,5 +1,6 @@
 enum VideoType {
-  file,
-  asset,
   network,
+  assets,
+  file,
+  memory,
 }
