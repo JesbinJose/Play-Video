@@ -1,7 +1,7 @@
 import 'package:play_video/models/enums/video_type.dart';
 
 class Video {
-  final dynamic video;
+  final String video;
   late VideoType type;
   Video.file(this.video) {
     type = VideoType.file;
@@ -11,8 +11,5 @@ class Video {
   }
   Video.network(this.video) {
     type = VideoType.network;
-  }
-  Video.memory(this.video) {
-    type = VideoType.memory;
   }
 }
