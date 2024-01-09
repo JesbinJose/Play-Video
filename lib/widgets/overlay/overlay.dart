@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:media_kit_video/media_kit_video.dart';
+import 'package:play_video/responsive.dart';
 
 class OverlayPlayer extends StatelessWidget {
-  OverlayPlayer({super.key, required this.state, required this.duration});
-  final Duration duration;
-  final VideoState state;
+  OverlayPlayer({super.key,});
   final ValueNotifier<double> _opacityNotifier = ValueNotifier(1);
 
   @override
@@ -16,11 +14,20 @@ class OverlayPlayer extends StatelessWidget {
           child: AnimatedOpacity(
             opacity: opacity,
             duration: const Duration(milliseconds: 500),
-            child: Column(
-              children: [
-                Row(),
-                Row(),
-              ],
+            child: Responsive.widget(
+              context,
+              small: const Column(
+                children: [
+                  Row(),
+                  Row(),
+                ],
+              ),
+              large: const Column(
+                children: [
+                  Row(),
+                  Row(),
+                ],
+              ),
             ),
           ),
         );

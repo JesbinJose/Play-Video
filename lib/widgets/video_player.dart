@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
-import 'package:play_video/widgets/overlay/overlay.dart';
+import 'package:play_video/models/play_video_controller.dart';
 
 class VideoPlayer extends StatefulWidget {
   const VideoPlayer({
     super.key,
+    required this.controller,
   });
+  final PlayVideoController controller;
 
   @override
   State<VideoPlayer> createState() => _VideoPlayerState();
@@ -15,23 +17,15 @@ class VideoPlayer extends StatefulWidget {
 class _VideoPlayerState extends State<VideoPlayer> {
   final player = Player();
   late final controller = VideoController(player);
+  late PlayVideoController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = widget.controller;
     player.open(
-      Playlist(
-        [
-          Media(
-            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-          ),
-          Media(
-            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-          ),
-          Media(
-            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-          ),
-        ],
+      Media(
+        'asset:///assets/lily.mp4',
       ),
     );
   }
@@ -42,28 +36,14 @@ class _VideoPlayerState extends State<VideoPlayer> {
     super.dispose();
   }
 
-  final ValueNotifier<BoxFit> boxfit = ValueNotifier(BoxFit.none);
-
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ValueListenableBuilder<BoxFit>(
-        valueListenable: boxfit,
-        builder: (_, v, __) {
-          return Video(
-            controller: controller,
-            fit: v,
-            controls: (state) {
-              return OverlayPlayer(
-                state: state,
-                duration: const Duration(seconds: 2),
-              );
-            },
-          );
-        },
+      child: Video(
+        width: _controller.width ,
+        height: _controller.height ,
+        controller: controller,
       ),
     );
   }
-
-  
 }

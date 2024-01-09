@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class Responsive {
-  static Widget responsive(
+  static Widget widget(
     BuildContext context, {
     required Widget small,
     required Widget large,
