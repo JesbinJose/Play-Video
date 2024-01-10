@@ -6,14 +6,12 @@ class PlayVideoController {
   final bool isAutoPlay;
   final bool loop;
   final Duration startingDuration;
-  late OverlayControls? control;
+  final OverlayControls? control;
   PlayVideoController({
     required this.videos,
     this.isAutoPlay = true,
     this.loop = false,
     this.startingDuration = Duration.zero,
-    OverlayControls? control,
-  }) {
-    control = control ?? OverlayControls.deFault();
-  }
+    this.control = const OverlayControls.deFault(),
+  });
 }

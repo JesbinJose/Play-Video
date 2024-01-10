@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:play_video/responsive.dart';
 
+final ValueNotifier<double> _opacityNotifier = ValueNotifier(1);
+
 class OverlayPlayer extends StatelessWidget {
-  OverlayPlayer({super.key,});
-  final ValueNotifier<double> _opacityNotifier = ValueNotifier(1);
+  const OverlayPlayer({super.key});
 
   @override
   Widget build(BuildContext context) {
