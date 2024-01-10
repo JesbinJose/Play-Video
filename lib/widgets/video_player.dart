@@ -6,9 +6,11 @@ import 'package:play_video/models/play_video_controller.dart';
 class VideoPlayer extends StatefulWidget {
   const VideoPlayer({
     super.key,
+    required this.size,
     required this.controller,
   });
   final PlayVideoController controller;
+  final Size size;
 
   @override
   State<VideoPlayer> createState() => _VideoPlayerState();
@@ -35,8 +37,8 @@ class _VideoPlayerState extends State<VideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return Video(
-      width: _controller.width,
-      height: _controller.height,
+      width: widget.size.width,
+      height: widget.size.height,
       controller: controller,
     );
   }

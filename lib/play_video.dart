@@ -8,9 +8,13 @@ import 'package:play_video/widgets/video_player.dart';
 class PlayVideo extends StatelessWidget {
   const PlayVideo({
     required this.controller,
+    this.width = 500,
+    this.height = 300,
     super.key,
   });
   final PlayVideoController controller;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +22,12 @@ class PlayVideo extends StatelessWidget {
       MediaKit.ensureInitialized();
     } catch (_) {}
     // main widget
-    return VideoPlayer(controller: controller);
+    return VideoPlayer(
+      controller: controller,
+      size: Size(
+        width,
+        height,
+      ),
+    );
   }
 }
