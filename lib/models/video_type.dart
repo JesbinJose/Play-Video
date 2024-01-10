@@ -1,9 +1,10 @@
+// import 'package:flutter/foundation.dart';
 import 'package:play_video/enums/enum.dart';
 
 class Video {
-  late dynamic video;
+  final String video;
   late VideoType type;
-  Video.file(String this.video) {
+  Video.file(this.video) {
     type = VideoType.file;
   }
   Video.assets(this.video) {
@@ -12,4 +13,7 @@ class Video {
   Video.network(this.video) {
     type = VideoType.network;
   }
+  // Video.memory(Uint8List this.video) {
+  //   type = VideoType.network;
+  // }
 }

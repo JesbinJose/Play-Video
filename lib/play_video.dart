@@ -18,12 +18,6 @@ class PlayVideo extends StatelessWidget {
       MediaKit.ensureInitialized();
     } catch (_) {}
     // main widget
-    return Expanded(
-      child: Stack(
-        children: [
-          VideoPlayer(controller: controller),
-        ],
-      ),
-    );
+    return VideoPlayer(controller: controller);
   }
 }

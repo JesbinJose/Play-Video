@@ -23,11 +23,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
   void initState() {
     super.initState();
     _controller = widget.controller;
-    player.open(
-      Media(
-        'asset:///assets/lily.mp4',
-      ),
-    );
+    player.open(Playlist(_controller.videos.videos.value));
   }
 
   @override
@@ -38,12 +34,10 @@ class _VideoPlayerState extends State<VideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Video(
-        width: _controller.width ,
-        height: _controller.height ,
-        controller: controller,
-      ),
+    return Video(
+      width: _controller.width,
+      height: _controller.height,
+      controller: controller,
     );
   }
 }
