@@ -37,9 +37,11 @@ class _VideoPlayerState extends State<VideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return Video(
+      fill: Colors.transparent,
       width: widget.size.width,
       height: widget.size.height,
       controller: controller,
+      fit: BoxFit.fill,
     );
   }
 }
