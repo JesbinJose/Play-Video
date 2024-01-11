@@ -1,4 +1,4 @@
-import 'package:play_video/models/state.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:play_video/models/video_number.dart';
 
 class PlayVideoController {
@@ -11,13 +11,9 @@ class PlayVideoController {
     this.isAutoPlay = true,
     this.loop = false,
     this.startingDuration = Duration.zero,
-  });
-  VideoPlayerState? _state;
-  void enterFullScreen() {
-    if (_state == null) {
-      throw 'You need to assign controller to a video player';
-    } else {
-      _state!.enterFullScreen();
-    }
+  }) {
+    try {
+      MediaKit.ensureInitialized();
+    } catch (_) {}
   }
 }

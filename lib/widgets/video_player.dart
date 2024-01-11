@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
+import 'package:play_video/models/controls.dart';
 import 'package:play_video/models/play_video_controller.dart';
+import 'package:play_video/models/state.dart';
 
 class VideoPlayer extends StatefulWidget {
   const VideoPlayer({
     super.key,
     required this.size,
     required this.controller,
+    required this.controls,
   });
   final PlayVideoController controller;
+  final OverlayControls controls;
   final Size size;
 
   @override
@@ -42,6 +46,13 @@ class _VideoPlayerState extends State<VideoPlayer> {
       height: widget.size.height,
       controller: controller,
       fit: BoxFit.fill,
+      controls: (state) {
+        final VideoPlayerState s = VideoPlayerState(
+          state: state,
+          controller: controller,
+        );
+        return widget.controls.overlay!(s);
+      },
     );
   }
 }
