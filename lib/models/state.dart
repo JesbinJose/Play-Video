@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -21,8 +20,19 @@ class VideoPlayerState {
     stream = controller.player.stream;
     this.state = controller.player.state;
   }
+  final ValueNotifier<bool> lockNotifier = ValueNotifier(false);
+  final ValueNotifier<double> overlayOpacityNotifier = ValueNotifier(1);
+  final ValueNotifier<double> moreOpacityNotifier = ValueNotifier(0);
   late PlayerStream stream;
   late PlayerState state;
+  void lock() => lockNotifier.value = true;
+  void unLock() => lockNotifier.value = false;
+  void showControls() => overlayOpacityNotifier.value = 1;
+  void hideControls() => overlayOpacityNotifier.value = 0;
+  void toggleControl() =>
+      overlayOpacityNotifier.value = overlayOpacityNotifier.value == 1 ? 0 : 1;
+  void showMenu() => moreOpacityNotifier.value = 1;
+  void exitMenu() => moreOpacityNotifier.value = 0;
   Future<void> play() async => await _controller.player.play();
   Future<void> pause() async => await _controller.player.pause();
   Future<void> playOrPause() async => await _controller.player.playOrPause();

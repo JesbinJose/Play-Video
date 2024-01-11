@@ -1,15 +1,9 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:play_video/models/state.dart';
 import 'package:play_video/models/theme.dart';
-
-final ValueNotifier<double> _overlayOpacityNotifier = ValueNotifier(1);
-final ValueNotifier<double> _moreOpacityNotifier = ValueNotifier(0);
-final ValueNotifier<bool> _lockNotifier = ValueNotifier(false);
+import 'package:play_video/widgets/overlay/lock_screen.dart';
+import 'package:play_video/widgets/overlay/screenshot_button.dart';
 
 class OverlayPlayer extends StatelessWidget {
   const OverlayPlayer({
@@ -25,11 +19,11 @@ class OverlayPlayer extends StatelessWidget {
     return Stack(
       children: [
         ValueListenableBuilder<double>(
-          valueListenable: _overlayOpacityNotifier,
+          valueListenable: state.overlayOpacityNotifier,
           builder: (context, opacity, child) {
             if (opacity == 0) {
               return InkWell(
-                onTap: () => _overlayOpacityNotifier.value = 1,
+                onTap: () => state.overlayOpacityNotifier.value = 1,
                 child: const SizedBox(
                   width: double.infinity,
                   height: double.infinity,
@@ -40,30 +34,12 @@ class OverlayPlayer extends StatelessWidget {
               const Duration(seconds: 3),
             );
             return ValueListenableBuilder(
-              valueListenable: _lockNotifier,
+              valueListenable: state.lockNotifier,
               builder: (context, value, child) {
                 if (value) {
-                  return AnimatedOpacity(
+                  return LockScreen(
                     opacity: opacity,
-                    duration: const Duration(milliseconds: 500),
-                    child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      padding: const EdgeInsets.all(
-                        30,
-                      ),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          onPressed: () {
-                            _lockNotifier.value = false;
-                          },
-                          icon: const Icon(
-                            Icons.lock_open,
-                          ),
-                        ),
-                      ),
-                    ),
+                    lockNotifier: state.lockNotifier,
                   );
                 }
                 return AnimatedOpacity(
@@ -81,7 +57,7 @@ class OverlayPlayer extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {
-                              _overlayOpacityNotifier.value = 0;
+                              state.overlayOpacityNotifier.value = 0;
                             },
                             icon: const Icon(Icons.more_horiz),
                           ),
@@ -90,32 +66,10 @@ class OverlayPlayer extends StatelessWidget {
                       Row(
                         children: [
                           IconButton(
-                            onPressed: () => _lockNotifier.value = true,
+                            onPressed: () => state.lockNotifier.value = true,
                             icon: const Icon(Icons.lock),
                           ),
-                          if (!kIsWeb)
-                            IconButton(
-                              onPressed: () async {
-                                try {
-                                  final image = await state.screenshot();
-                                  if (image != null) {
-                                    await getApplicationCacheDirectory().then(
-                                      (v) {
-                                        File file = File(
-                                          '${v.path}/screenshot/${state.state.duration.inMilliseconds}.jpg',
-                                        );
-                                        file.writeAsBytesSync(image);
-                                        log('Image saved successfully!');
-                                      },
-                                    );
-                                  }
-                                } catch (e) {
-                                  log('Error: while taking or saving the screenshot');
-                                  log('Error: $e');
-                                }
-                              },
-                              icon: const Icon(Icons.image_outlined),
-                            ),
+                          if (!kIsWeb) ScreenShotButton(state: state),
                         ],
                       ),
                       Container(
@@ -143,7 +97,7 @@ class OverlayPlayer extends StatelessWidget {
           },
         ),
         ValueListenableBuilder(
-          valueListenable: _moreOpacityNotifier,
+          valueListenable: state.moreOpacityNotifier,
           builder: (context, opacity, child) {
             return Center(
               child: AnimatedOpacity(
@@ -160,7 +114,7 @@ class OverlayPlayer extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {
-                            _overlayOpacityNotifier.value = 0;
+                            state.overlayOpacityNotifier.value = 0;
                           },
                           icon: const Icon(Icons.more_horiz),
                         ),
@@ -184,6 +138,6 @@ class OverlayPlayer extends StatelessWidget {
 
   Future<void> setTimer(Duration duration) async {
     await Future.delayed(duration);
-    _overlayOpacityNotifier.value = 0;
+    state.overlayOpacityNotifier.value = 0;
   }
 }
