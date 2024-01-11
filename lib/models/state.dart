@@ -14,6 +14,8 @@ class VideoPlayerState {
   VideoPlayerState({
     required VideoState state,
     required VideoController controller,
+    required this.height,
+    required this.widgth,
   }) {
     _state = state;
     _controller = controller;
@@ -23,6 +25,9 @@ class VideoPlayerState {
   final ValueNotifier<bool> lockNotifier = ValueNotifier(false);
   final ValueNotifier<double> overlayOpacityNotifier = ValueNotifier(1);
   final ValueNotifier<double> moreOpacityNotifier = ValueNotifier(0);
+  final double height;
+  final double widgth;
+  late ValueNotifier<bool> isPlaying = ValueNotifier(state.playing);
   late PlayerStream stream;
   late PlayerState state;
   void lock() => lockNotifier.value = true;
@@ -33,9 +38,21 @@ class VideoPlayerState {
       overlayOpacityNotifier.value = overlayOpacityNotifier.value == 1 ? 0 : 1;
   void showMenu() => moreOpacityNotifier.value = 1;
   void exitMenu() => moreOpacityNotifier.value = 0;
-  Future<void> play() async => await _controller.player.play();
-  Future<void> pause() async => await _controller.player.pause();
-  Future<void> playOrPause() async => await _controller.player.playOrPause();
+  Future<void> play() async {
+    isPlaying.value = true;
+    await _controller.player.play();
+  }
+
+  Future<void> pause() async {
+    isPlaying.value = false;
+    await _controller.player.pause();
+  }
+
+  Future<void> playOrPause() async {
+    isPlaying.value = !isPlaying.value;
+    await _controller.player.playOrPause();
+  }
+
   Future<void> jump(int index) async => await _controller.player.jump(index);
   Future<void> move(int from, int to) async =>
       await _controller.player.move(from, to);

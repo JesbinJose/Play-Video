@@ -50,6 +50,8 @@ class _VideoPlayerState extends State<VideoPlayer> {
         final VideoPlayerState s = VideoPlayerState(
           state: state,
           controller: controller,
+          height: widget.size.height,
+          widgth: widget.size.width,
         );
         return widget.controls.overlay!(s);
       },
