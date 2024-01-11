@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
@@ -32,8 +33,13 @@ class VideoPlayerState {
   Future<void> previous() async => await _controller.player.previous();
   Future<void> remove(int index) async =>
       await _controller.player.remove(index);
-  Future<Uint8List?> screenshot() async =>
-      await _controller.player.screenshot();
+  Future<Uint8List?> screenshot() async {
+    if (!kIsWeb) {
+      return await _controller.player.screenshot();
+    }
+    throw 'Can\'t save screen shot';
+  }
+
   Future<void> seek(Duration duration) async =>
       await _controller.player.seek(duration);
   Future<void> setAudioDevice(AudioDevice device) async =>
