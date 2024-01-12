@@ -16,14 +16,7 @@ class PlayPauseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        state.playOrPause();
-        print(state.state.position);
-        state.seek(
-          state.state.position + const Duration(seconds: 10),
-        );
-        print(state.state.position);
-      },
+      onPressed: () => state.playOrPause(),
       icon: ValueListenableBuilder<bool>(
         valueListenable: state.isPlaying,
         builder: (_, v, __) {

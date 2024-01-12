@@ -6,11 +6,12 @@ class Debouncer {
   Timer? _timer;
   final VideoPlayerState state;
   Debouncer({required this.state});
+  static Duration duration = const Duration(seconds: 5);
 
   void run() {
     state.showControls();
     _timer?.cancel();
-    _timer = Timer(const Duration(seconds: 3), () => state.hideControls());
+    _timer = Timer(duration, () => state.hideControls());
   }
 
   void dispose() {

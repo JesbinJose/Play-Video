@@ -25,9 +25,10 @@ class VideoPlayerState {
   final ValueNotifier<bool> lockNotifier = ValueNotifier(false);
   final ValueNotifier<double> overlayOpacityNotifier = ValueNotifier(1);
   final ValueNotifier<double> moreOpacityNotifier = ValueNotifier(0);
+  late ValueNotifier<bool> isPlaying = ValueNotifier(state.playing);
+
   final double height;
   final double widgth;
-  late ValueNotifier<bool> isPlaying = ValueNotifier(state.playing);
   late PlayerStream stream;
   late PlayerState state;
   void lock() => lockNotifier.value = true;
@@ -101,8 +102,11 @@ class VideoPlayerState {
         width: width,
       );
   Future<void> enterFullScreen() async => await _state.enterFullscreen();
+
   Future<void> exitFullScreen() async => await _state.exitFullscreen();
+
   Future<void> toggleFullScreen() async => await _state.toggleFullscreen();
+
   void refreshView() => _state.refreshView();
   Future<AppExitResponse> didRequestAppExit() async =>
       await _state.didRequestAppExit();
@@ -128,4 +132,11 @@ class VideoPlayerState {
         controls: controls,
         subtitleViewConfiguration: subtitleViewConfiguration,
       );
+  void dispose() {
+    lockNotifier.dispose();
+    overlayOpacityNotifier.dispose();
+    moreOpacityNotifier.dispose();
+    isPlaying.dispose();
+    _state.dispose();
+  }
 }
