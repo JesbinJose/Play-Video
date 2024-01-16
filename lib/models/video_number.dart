@@ -11,6 +11,7 @@ class Videos {
   }) {
     switch (type) {
       case VideoType.file:
+        if (kIsWeb) throw 'VideoType.file can\'t be used in web platform';
         videos.value = [Media('file:///$videoPath')];
         break;
       case VideoType.assets:
@@ -40,6 +41,7 @@ class Videos {
 
     switch (type) {
       case VideoType.file:
+        if (kIsWeb) throw 'VideoType.file can\'t be used in web platform';
         for (final video in videos) {
           result.add(Media('file:///$video'));
         }
@@ -70,6 +72,7 @@ class Videos {
     for (Video video in videos) {
       switch (video.type) {
         case VideoType.file:
+          if (kIsWeb) throw 'VideoType.file can\'t be used in web platform';
           medias.add(Media('file:///${video.video}'));
           break;
         case VideoType.assets:

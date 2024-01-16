@@ -1,4 +1,4 @@
-import 'package:media_kit/media_kit.dart';
+import 'package:play_video/models/state.dart';
 import 'package:play_video/models/video_number.dart';
 
 class PlayVideoController {
@@ -6,6 +6,7 @@ class PlayVideoController {
   final bool isAutoPlay;
   final bool loop;
   final Duration startingDuration;
+  late VideoPlayerState state;
   PlayVideoController({
     required this.videos,
     this.isAutoPlay = true,

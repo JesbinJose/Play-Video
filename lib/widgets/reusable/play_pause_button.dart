@@ -18,7 +18,7 @@ class PlayPauseButton extends StatelessWidget {
     return IconButton(
       onPressed: () => state.playOrPause(),
       icon: ValueListenableBuilder<bool>(
-        valueListenable: state.isPlaying,
+        valueListenable: state.isPlay,
         builder: (_, v, __) {
           return v ? pauseIcon : playIcon;
         },
