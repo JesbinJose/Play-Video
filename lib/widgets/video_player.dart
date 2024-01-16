@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:play_video/models/controls.dart';
 import 'package:play_video/models/play_video_controller.dart';
@@ -41,11 +40,10 @@ class _VideoPlayerState extends State<VideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return Video(
-      fill: Colors.transparent,
       width: widget.size.width,
       height: widget.size.height,
       controller: controller,
-      fit: BoxFit.fill,
+      fit: _controller.fit,
       controls: (state) {
         final VideoPlayerState s = VideoPlayerState(
           state: state,
