@@ -3,8 +3,32 @@ import 'package:media_kit/media_kit.dart';
 import 'package:play_video/enums/enum.dart';
 import 'package:play_video/models/video_type.dart';
 
+export 'video_type.dart';
+
+/// Videos
+/// ------
+///
+/// Is Where You need to define how many or single video/videos do you want to play.
+/// In a single player
+///
+/// ```dart
+/// Videos.single("videoPath Or url", type) // single Video playing
+/// Videos.multiVideoWithSingleType(["path 1","path 2"], type) // Multiple Video playing with single type
+/// Videos.multiVideo([Video.network('url'),Video.file('path')]) // Multiple Video With diffrent types
+/// ```
 class Videos {
-  ValueNotifier<List<Media>> videos = ValueNotifier([]);
+  /// [videos] `List<Media> `
+  List<Media> videos = [];
+
+  /// [Videos.single] is Used For Only playing a single Video
+  ///
+  /// ```dart
+  /// Videos.single(videoPath:'path or url',type: type); // default type is VideoType.Network
+  /// ```
+  /// videoPath `String`
+  /// 
+  /// type `VideoType` 
+  /// 
   Videos.single({
     required String videoPath,
     VideoType type = VideoType.network,
@@ -12,13 +36,13 @@ class Videos {
     switch (type) {
       case VideoType.file:
         if (kIsWeb) throw 'VideoType.file can\'t be used in web platform';
-        videos.value = [Media('file:///$videoPath')];
+        videos = [Media('file:///$videoPath')];
         break;
       case VideoType.assets:
-        videos.value = [Media('asset:///$videoPath')];
+        videos = [Media('asset:///$videoPath')];
         break;
       default:
-        videos.value = [Media(videoPath)];
+        videos = [Media(videoPath)];
     }
   }
 
@@ -45,20 +69,20 @@ class Videos {
         for (final video in videos) {
           result.add(Media('file:///$video'));
         }
-        this.videos.value = result;
+        this.videos = result;
         break;
       case VideoType.assets:
         for (final video in videos) {
           result.add(Media('asset:///$video'));
         }
-        this.videos.value = result;
+        this.videos = result;
       // case VideoType.memory:
       //   addVideos(videos as List<Uint8List>).then(
       //     (value) => this.videos.value = value,
       //   );
       //   break;
       default:
-        this.videos.value.addAll(
+        this.videos.addAll(
               List.generate(
                 videos.length,
                 (index) => Media(result[index].toString()),
@@ -84,7 +108,7 @@ class Videos {
         default:
           medias.add(Media(video.video));
       }
-      this.videos.value = medias;
+      this.videos = medias;
     }
   }
 }
