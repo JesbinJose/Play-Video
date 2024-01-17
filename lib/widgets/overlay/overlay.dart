@@ -61,7 +61,8 @@ class OverlayPlayer extends StatelessWidget {
                               IconButton(
                                 onPressed: () => Navigator.pop(context),
                                 icon: const Icon(
-                                    Icons.arrow_back_ios_new_rounded),
+                                  Icons.arrow_back_ios_new_rounded,
+                                ),
                               ),
                               IconButton(
                                 onPressed: () {
@@ -91,7 +92,19 @@ class OverlayPlayer extends StatelessWidget {
                                 ProgressPart(state: state, d: d),
                                 Row(
                                   children: [
+                                    IconButton(
+                                      onPressed: () => state.previous(),
+                                      icon: const Icon(
+                                        Icons.skip_previous_rounded,
+                                      ),
+                                    ),
                                     PlayPauseButton(state: state),
+                                    IconButton(
+                                      onPressed: () => state.next(),
+                                      icon: const Icon(
+                                        Icons.skip_next_rounded,
+                                      ),
+                                    ),
                                     const Spacer(),
                                     EnterExitFullScreenButton(state: state),
                                   ],
