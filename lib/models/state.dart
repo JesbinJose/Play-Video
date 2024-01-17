@@ -7,7 +7,8 @@ import 'package:media_kit_video/media_kit_video.dart';
 import 'package:play_video/models/methods.dart';
 
 export 'package:media_kit/media_kit.dart';
-
+/// [VideoPlayerState] is the state of the Video , player.
+/// Control every thing , Get all updates From this [state] and [stream]
 class VideoPlayerState extends UIOperations {
   late VideoState _state;
   late VideoController _controller;
@@ -27,9 +28,20 @@ class VideoPlayerState extends UIOperations {
     _player = _controller.player;
   }
 
+  /// Height of the Player
   final double height;
+
+  /// Width of the Player
   final double widgth;
+
+  /// Player Stream
+  /// ------------
+  /// Event [Stream]s for subscribing to [Player] events.
   late PlayerStream stream;
+
+  /// Player State
+  /// ------------
+  /// State of the Player
   late PlayerState state;
 
   /// Start Playing video or videos
