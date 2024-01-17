@@ -17,7 +17,7 @@ class VideoPlayerState extends UIOperations {
     required VideoState state,
     required VideoController controller,
     required this.height,
-    required this.widgth,
+    required this.width,
   }) : super(
           isPlaying: controller.player.state.playing,
         ) {
@@ -32,7 +32,7 @@ class VideoPlayerState extends UIOperations {
   final double height;
 
   /// Width of the Player
-  final double widgth;
+  final double width;
 
   /// Player Stream
   /// ------------

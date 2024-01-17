@@ -28,12 +28,22 @@ class OverlayPlayer extends StatelessWidget {
           ValueListenableBuilder<double>(
             valueListenable: state.overlayOpacityNotifier,
             builder: (context, opacity, child) {
-              if (opacity == 0) {
-                return InkWell(
-                  onTap: () => d.run(),
-                  child: const SizedBox(
-                    width: double.infinity,
-                    height: double.infinity,
+              if (opacity == 0.0) {
+                return SizedBox(
+                  height: state.height,
+                  width: state.width,
+                  child: GestureDetector(
+                    onTap: () => d.run(),
+                    onHorizontalDragUpdate: (details) {
+                      if (!state.isPlaying) state.play();
+                      // d.run();
+                      final newValue =
+                          (details.localPosition.dx / context.size!.width)
+                              .clamp(0.0, 1.0);
+                      final seekTo =
+                          newValue * state.state.duration.inMilliseconds;
+                      state.seek(Duration(milliseconds: seekTo.toInt()));
+                    },
                   ),
                 );
               }
@@ -47,11 +57,11 @@ class OverlayPlayer extends StatelessWidget {
                       lockNotifier: state.lockNotifier,
                     );
                   }
-                  return InkWell(
-                    onTap: () => d.run(),
-                    child: AnimatedOpacity(
-                      opacity: opacity,
-                      duration: const Duration(milliseconds: 500),
+                  return AnimatedOpacity(
+                    opacity: opacity,
+                    duration: const Duration(milliseconds: 500),
+                    child: InkWell(
+                      onTap: () => d.dispose(),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

@@ -53,7 +53,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
           state: state,
           controller: controller,
           height: widget.size.height,
-          widgth: widget.size.width,
+          width: widget.size.width,
         );
         widget.controller.state = s;
         return widget.controls.overlay!(s);
