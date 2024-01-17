@@ -1,11 +1,11 @@
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:play_video/function/timer.dart';
 import 'package:play_video/models/state.dart';
 import 'package:play_video/models/theme.dart';
 import 'package:play_video/widgets/overlay/lock_screen.dart';
 import 'package:play_video/widgets/overlay/more_settings_widget.dart';
-import 'package:play_video/widgets/overlay/screenshot_button.dart';
+// import 'package:play_video/widgets/overlay/screenshot_button.dart';
 import 'package:play_video/widgets/progress_part.dart';
 import 'package:play_video/widgets/reusable/full_screen_toggle_button.dart';
 import 'package:play_video/widgets/reusable/play_pause_button.dart';
@@ -80,8 +80,8 @@ class OverlayPlayer extends StatelessWidget {
                                     state.lockNotifier.value = true,
                                 icon: const Icon(Icons.lock),
                               ),
-                              const Spacer(),
-                              if (!kIsWeb) ScreenShotButton(state: state),
+                              // const Spacer(),
+                              // if (!kIsWeb) ScreenShotButton(state: state),
                             ],
                           ),
                           Container(
