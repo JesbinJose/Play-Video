@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:play_video/models/state.dart';
-import 'package:play_video/models/video_number.dart';
+import 'package:play_video/models/videos.dart';
 
-export 'video_number.dart';
+export 'videos.dart';
 export 'state.dart';
 
 /// [PlayVideoController] is the controller passed in the VideoPlayer widget
