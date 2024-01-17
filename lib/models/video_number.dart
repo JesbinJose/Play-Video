@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:play_video/enums/enum.dart';
-import 'package:play_video/models/video_type.dart';
+import 'video_type.dart';
 
 export 'video_type.dart';
 
@@ -26,9 +26,9 @@ class Videos {
   /// Videos.single(videoPath:'path or url',type: type); // default type is VideoType.Network
   /// ```
   /// videoPath `String`
-  /// 
-  /// type `VideoType` 
-  /// 
+  ///
+  /// type `VideoType`
+  ///
   Videos.single({
     required String videoPath,
     VideoType type = VideoType.network,

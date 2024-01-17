@@ -1,5 +1,4 @@
 import 'package:play_video/enums/enum.dart';
-import 'package:play_video/models/play_video_controller.dart';
 
 /// [Video] is the Type of Video
 ///
@@ -8,7 +7,7 @@ import 'package:play_video/models/play_video_controller.dart';
 /// final Video assetsVideo = Video.assets('Path to the video'); // Video from assets
 /// final Video networkVideo = Video.network('Video Url'); // Video from network
 /// ```
-/// Need to pass in the controller for playing a video 
+/// Need to pass in the controller for playing a video
 class Video {
   final String video;
   late VideoType type;
@@ -21,6 +20,7 @@ class Video {
   Video.file(this.video) {
     type = VideoType.file;
   }
+
   /// Can be used For only render Video from assets
   ///
   /// Pass "Path of the video" as argument.
@@ -30,9 +30,10 @@ class Video {
   Video.assets(this.video) {
     type = VideoType.assets;
   }
+
   /// Can be used For only render Video from Network
   ///
-  /// Pass "url" as argument , 
+  /// Pass "url" as argument ,
   /// Which need to be url for a video not any web page link.
   ///
   /// eg: Video.url('url');

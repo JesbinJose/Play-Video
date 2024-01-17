@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:play_video/enums/enum.dart';
 
 class PlayerTheme {
   final Color iconsColor;
