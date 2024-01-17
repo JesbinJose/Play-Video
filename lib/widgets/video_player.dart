@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:media_kit_video/media_kit_video.dart';
-import 'package:play_video/models/controls.dart';
 import 'package:play_video/models/play_video_controller.dart';
-import 'package:play_video/models/state.dart';
 
 class VideoPlayer extends StatefulWidget {
   const VideoPlayer({
@@ -29,6 +27,9 @@ class _VideoPlayerState extends State<VideoPlayer> {
     super.initState();
     _controller = widget.controller;
     player.open(Playlist(_controller.videos.videos.value));
+    if (!_controller.isAutoPlay) player.pause();
+    if (_controller.isAutoPlay) player.play();
+
   }
 
   @override
@@ -44,6 +45,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
       height: widget.size.height,
       controller: controller,
       fit: _controller.fit,
+      wakelock: true,
       controls: (state) {
         final VideoPlayerState s = VideoPlayerState(
           state: state,
