@@ -50,6 +50,14 @@ class Videos {
   //   Media.memory(video).then((value) => videos.value = [value]);
   // }
 
+  /// [Videos.multiVideoWithSingleType] Only for Videos with same type
+  ///
+  /// ```dart
+  /// Videos.multiVideoWithSingleType(videos : ["path 1","path 2"], type : type) // default type is network
+  /// ```
+  /// videoPath `List<String>`
+  /// type `VideoType`
+  ///
   Videos.multiVideoWithSingleType({
     required List<String> videos,
     required VideoType type,
@@ -91,6 +99,13 @@ class Videos {
     }
   }
 
+  /// [Videos.multiVideo] Sent the Video according to its type
+  ///
+  /// ```dart
+  /// Videos.multiVideo(videos : [Video.file('Path'),Video.network('url')])
+  /// ```
+  /// videos `List<Video>`
+  ///
   Videos.multiVideo({required List<Video> videos}) {
     final List<Media> medias = [];
     for (Video video in videos) {
