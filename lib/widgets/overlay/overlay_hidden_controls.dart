@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:play_video/function/brightness.dart';
 import 'package:play_video/function/timer.dart';
 import 'package:play_video/models/state.dart';
 
@@ -50,12 +49,12 @@ class OverlayHiddenControls extends StatelessWidget {
                 final movement = ((details.localPosition.dy / 0.9) /
                         context.size!.height)
                     .clamp(0, 1.0);
-                await setBrightness(1 - movement.toDouble());
+                await state.setBrightness(1 - movement.toDouble());
               } else {
                 final movement = ((details.localPosition.dy / 0.9) /
                         context.size!.height)
                     .clamp(0, 1.0);
-                await state.setVolume(100 - movement * 100);
+                await state.volume.setVolume(1 - movement.toDouble());
               }
             },
             onHorizontalDragUpdate: (details) {

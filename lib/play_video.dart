@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 library play_video;
 
 import 'package:flutter/material.dart';
@@ -8,8 +10,6 @@ import 'package:play_video/widgets/video_player.dart';
 export 'package:play_video/models/play_video_controller.dart';
 export 'package:play_video/models/controls.dart';
 
-
-// ignore: must_be_immutable
 class PlayVideo extends StatelessWidget {
   PlayVideo({
     super.key,
