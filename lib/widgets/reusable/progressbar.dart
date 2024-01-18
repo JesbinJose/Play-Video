@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:play_video/function/timer.dart';
 import 'package:play_video/models/state.dart';
 
+double _time = 0;
+
 class DefaultProgressBar extends StatelessWidget {
   final VideoPlayerState state;
   final Debouncer debouncer;
@@ -12,8 +14,9 @@ class DefaultProgressBar extends StatelessWidget {
   });
 
   double _calculateValue(Duration position, Duration duration) {
-    if (position == Duration.zero) return 0.0;
-    return position.inMilliseconds / duration.inMilliseconds;
+    if (position == Duration.zero) return _time;
+    _time = position.inMilliseconds / duration.inMilliseconds;
+    return _time;
   }
 
   @override
@@ -22,13 +25,13 @@ class DefaultProgressBar extends StatelessWidget {
       child: GestureDetector(
         onHorizontalDragUpdate: (details) {
           debouncer.run();
-          final newValue = (details.localPosition.dx / context.size!.width)
-              .clamp(0.0, 1.0);
-          final seekTo = newValue * state.state.duration.inMilliseconds;
+          final seekTo =
+              (details.localPosition.dx / context.size!.width).clamp(0.0, 1.0) *
+                  state.state.duration.inMilliseconds;
           state.seek(Duration(milliseconds: seekTo.toInt()));
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal:10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: StreamBuilder<Duration>(
             stream: state.stream.position,
             builder: (context, snapshot) {

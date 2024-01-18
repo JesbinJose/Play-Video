@@ -1,5 +1,6 @@
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:play_video/function/brightness.dart';
 import 'package:play_video/function/timer.dart';
 import 'package:play_video/models/state.dart';
 import 'package:play_video/models/theme.dart';
@@ -32,17 +33,55 @@ class OverlayPlayer extends StatelessWidget {
                 return SizedBox(
                   height: state.height,
                   width: state.width,
-                  child: GestureDetector(
-                    onTap: () => d.run(),
-                    onHorizontalDragUpdate: (details) {
-                      if (!state.isPlaying) state.play();
-                      // d.run();
-                      final newValue =
-                          (details.localPosition.dx / context.size!.width)
-                              .clamp(0.0, 1.0);
-                      final seekTo =
-                          newValue * state.state.duration.inMilliseconds;
-                      state.seek(Duration(milliseconds: seekTo.toInt()));
+                  child: StreamBuilder(
+                    stream: state.stream.position,
+                    builder: (context, snapshot) {
+                      return GestureDetector(
+                        onTap: () => d.run(),
+                        onDoubleTapDown: (details) {
+                          final widthPart =
+                              MediaQuery.sizeOf(context).width / 4;
+                          final duration = snapshot.data?.inSeconds ?? 0;
+                          if (details.localPosition.dx < widthPart) {
+                            state.seek(
+                              Duration(
+                                seconds: duration > 10 ? duration - 10 : 0,
+                              ),
+                            );
+                          } else if (details.localPosition.dx > widthPart * 3) {
+                            state.seek(
+                              Duration(
+                                seconds: duration + 10,
+                              ),
+                            );
+                          } else {
+                            state.playOrPause();
+                          }
+                        },
+                        onVerticalDragUpdate: (details) {
+                          currentBrightness;
+                          setBrightness(1.0);
+                          if (details.localPosition.dx <
+                              MediaQuery.sizeOf(context).width ) {
+                            final brightness = ((details.localPosition.dy/0.9) /
+                                    context.size!.height)
+                                .clamp(0, 1.0);
+                            setBrightness(1-brightness.toDouble());
+                          } else {
+                            print('vol');
+                          }
+                        },
+                        onHorizontalDragUpdate: (details) {
+                          if (!state.isPlaying) state.play();
+                          // d.run();
+                          final newValue =
+                              (details.localPosition.dx / context.size!.width)
+                                  .clamp(0.0, 1.0);
+                          final seekTo =
+                              newValue * state.state.duration.inMilliseconds;
+                          state.seek(Duration(milliseconds: seekTo.toInt()));
+                        },
+                      );
                     },
                   ),
                 );
