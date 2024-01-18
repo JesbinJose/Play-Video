@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:play_video/models/methods.dart';
+import 'package:play_video/function/brightness.dart' as b;
 
 export 'package:media_kit/media_kit.dart';
+
 /// [VideoPlayerState] is the state of the Video , player.
 /// Control every thing , Get all updates From this [state] and [stream]
 class VideoPlayerState extends UIOperations {
@@ -33,6 +35,9 @@ class VideoPlayerState extends UIOperations {
 
   /// Width of the Player
   final double width;
+        
+  /// For getting current brightness in `Future<double>` type
+  final Future<double> currentBrightness =b.currentBrightness;
 
   /// Player Stream
   /// ------------
@@ -184,6 +189,17 @@ class VideoPlayerState extends UIOperations {
   ///
   Future<void> setVolume(double volume) async =>
       await _player.setVolume(volume);
+
+  /// Set Brightness
+  ///
+  /// provide value `0.0` to `1.0` as brightness
+  ///
+  /// Disclamer
+  ///
+  /// May Support only some platform so need to notice that
+  Future<void> setBrightness(double brightness) async =>
+      await b.setBrightness(brightness);
+
 
   /// It will only compelete when first frame of the video is rendered
   Future<void> waitforFirstFrameRender() async =>
