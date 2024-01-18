@@ -8,6 +8,7 @@ import 'package:play_video/widgets/overlay/overlay_hidden_controls.dart';
 import 'package:play_video/widgets/progress_part.dart';
 import 'package:play_video/widgets/reusable/full_screen_toggle_button.dart';
 import 'package:play_video/widgets/reusable/play_pause_button.dart';
+import 'package:play_video/widgets/reusable/volume_toggle_button.dart';
 
 class OverlayPlayer extends StatelessWidget {
   const OverlayPlayer({
@@ -99,6 +100,7 @@ class OverlayPlayer extends StatelessWidget {
                                       ),
                                     ),
                                     const Spacer(),
+                                    DefaultMuteToggleButton(state: state),
                                     EnterExitFullScreenButton(state: state),
                                   ],
                                 ),
