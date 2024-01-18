@@ -28,7 +28,11 @@ class DefaultProgressBar extends StatelessWidget {
           final seekTo =
               (details.localPosition.dx / context.size!.width).clamp(0.0, 1.0) *
                   state.state.duration.inMilliseconds;
-          state.seek(Duration(milliseconds: seekTo.toInt()));
+          state.seek(
+            Duration(
+              milliseconds: seekTo.toInt(),
+            ),
+          );
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),

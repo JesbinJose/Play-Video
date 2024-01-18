@@ -10,7 +10,6 @@ Future<double> get systemBrightness async {
 
 Future<double> get currentBrightness async {
   try {
-    print(await ScreenBrightness().current);
     return await ScreenBrightness().current;
   } catch (_) {
     return 0.0;

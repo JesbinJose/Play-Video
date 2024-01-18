@@ -1,4 +1,3 @@
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:play_video/function/brightness.dart';
 import 'package:play_video/function/timer.dart';
@@ -6,7 +5,6 @@ import 'package:play_video/models/state.dart';
 import 'package:play_video/models/theme.dart';
 import 'package:play_video/widgets/overlay/lock_screen.dart';
 import 'package:play_video/widgets/overlay/more_settings_widget.dart';
-// import 'package:play_video/widgets/overlay/screenshot_button.dart';
 import 'package:play_video/widgets/progress_part.dart';
 import 'package:play_video/widgets/reusable/full_screen_toggle_button.dart';
 import 'package:play_video/widgets/reusable/play_pause_button.dart';
@@ -58,22 +56,22 @@ class OverlayPlayer extends StatelessWidget {
                             state.playOrPause();
                           }
                         },
-                        onVerticalDragUpdate: (details) {
-                          currentBrightness;
-                          setBrightness(1.0);
+                        onVerticalDragUpdate: (details) async{
                           if (details.localPosition.dx <
-                              MediaQuery.sizeOf(context).width ) {
-                            final brightness = ((details.localPosition.dy/0.9) /
+                              MediaQuery.sizeOf(context).width / 2) {
+                            final movement = ((details.localPosition.dy / 0.9) /
                                     context.size!.height)
                                 .clamp(0, 1.0);
-                            setBrightness(1-brightness.toDouble());
+                            await setBrightness(1 - movement.toDouble());
                           } else {
-                            print('vol');
+                            final movement = ((details.localPosition.dy / 0.9) /
+                                    context.size!.height)
+                                .clamp(0, 1.0);
+                            await state.setVolume(100 - movement * 100);
                           }
                         },
                         onHorizontalDragUpdate: (details) {
                           if (!state.isPlaying) state.play();
-                          // d.run();
                           final newValue =
                               (details.localPosition.dx / context.size!.width)
                                   .clamp(0.0, 1.0);
