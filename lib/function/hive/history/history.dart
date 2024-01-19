@@ -5,7 +5,7 @@ class HistroyDataBase {
   HistroyDataBase() {
     if (_box == null) throw 'You need to initlize it before using';
   }
-  static late Box? _box;
+  static Box? _box;
 
   /// Load the history data base
   Future<void> loadDB() async {

@@ -4,7 +4,7 @@ class FavouritesDataBase {
   FavouritesDataBase() {
     if (_box == null) throw 'You need to initlize it before using';
   }
-  static late Box? _box;
+  static Box? _box;
   //it is for loading the favourite data base
   static Future<void> init() async {
     try {

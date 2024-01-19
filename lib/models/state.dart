@@ -249,16 +249,17 @@ class VideoPlayerState extends UIOperations {
     Alignment? alignment,
     double? aspectRatio,
     FilterQuality? filterQuality,
-  }) async =>
-      _state.update(
-        width: width,
-        height: height,
-        fill: fill,
-        fit: fit,
-        filterQuality: filterQuality,
-        alignment: alignment,
-        aspectRatio: aspectRatio,
-      );
+  }) async {
+    _state.update(
+      width: width,
+      height: height,
+      fill: fill,
+      fit: fit,
+      filterQuality: filterQuality,
+      alignment: alignment,
+      aspectRatio: aspectRatio,
+    );
+  }
 
   void dispose() {
     super.lockNotifier.dispose();

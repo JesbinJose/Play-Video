@@ -4,7 +4,7 @@ class PlayList {
   PlayList() {
     if (_box == null) throw 'You need to initlize it before using';
   }
-  static late Box? _box;
+  static Box? _box;
   //it is for loading data base
   Future<void> init() async {
     try {
@@ -44,7 +44,7 @@ class PlayList {
     final List list = _box!.keys.toList();
     Map<String, List<String>> playlists = {};
     for (String playlistName in list) {
-      //getting single by single whole playlists
+      // getting single by single whole playlists
       playlists[playlistName] = _box!.get(playlistName);
     }
     return playlists;

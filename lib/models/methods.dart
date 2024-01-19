@@ -17,7 +17,9 @@ class UIOperations {
   /// [isPlay] is a valueNotifier notifies when video state change from play and pause
   late ValueNotifier<bool> isPlay = ValueNotifier(isPlaying);
 
+
   late ValueNotifier<int> currentPlayingVideo = ValueNotifier(1);
+
 
   /// Lock the Player for reducing accidental touches
   void lock() => lockNotifier.value = true;

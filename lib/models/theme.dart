@@ -20,8 +20,14 @@ class PlayerTheme {
   /// Text style of menu items
   final TextStyle menuItemStyle;
 
+  /// Text style for selected item in more settings
+  final TextStyle menuSelectedItemStyle;
+
   /// Text style of menu items title
   final TextStyle menuItemTitleStyle;
+
+  /// Style of menu Title
+  final TextStyle menuTitleStyle;
 
   /// [PlayerTheme] has been defined defualt for all and it is in
   /// Black and White combination
@@ -30,8 +36,13 @@ class PlayerTheme {
     this.iconsSize = 15,
     this.progressBarTheme = const ProgressBarTheme(),
     this.backgroundColor = const Color.fromARGB(100, 0, 0, 0),
-    this.menuItemStyle = const TextStyle(fontSize: 14),
-    this.menuItemTitleStyle = const TextStyle(fontSize: 16),
+    this.menuItemStyle = const TextStyle(fontSize: 14,color: Colors.white54),
+    this.menuItemTitleStyle = const TextStyle(fontSize: 16,color: Colors.white60),
+    this.menuTitleStyle = const TextStyle(fontSize: 18,color: Colors.white70),
+    this.menuSelectedItemStyle = const TextStyle(
+      fontSize: 16,
+      color: Colors.red,
+    ),
   });
 }
 
