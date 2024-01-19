@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:play_video/models/controls.dart';
 
-class ExitButton extends StatelessWidget {
-  const ExitButton({
+class UnLockButton extends StatelessWidget {
+  const UnLockButton({
     super.key,
+    required this.lockNotifier,
     this.child,
     this.theme,
   });
+
+  final ValueNotifier<bool> lockNotifier;
   final Widget? child;
   final PlayerTheme? theme;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => Navigator.pop(context),
+      onPressed: () {
+        lockNotifier.value = false;
+      },
       icon: child ??
           Icon(
-            Icons.arrow_back_ios_new_rounded,
+            Icons.lock_open,
             size: theme?.iconsSize,
             color: theme?.iconsColor,
           ),

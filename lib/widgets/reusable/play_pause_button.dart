@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:play_video/models/state.dart';
+import 'package:play_video/models/theme.dart';
 
 class PlayPauseButton extends StatelessWidget {
   const PlayPauseButton({
@@ -7,11 +8,13 @@ class PlayPauseButton extends StatelessWidget {
     required this.state,
     this.playIcon,
     this.pauseIcon,
+    this.theme,
   });
 
   final VideoPlayerState state;
   final Widget? playIcon;
   final Widget? pauseIcon;
+  final PlayerTheme? theme;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +24,18 @@ class PlayPauseButton extends StatelessWidget {
         valueListenable: state.isPlay,
         builder: (_, v, __) {
           return v
-              ? pauseIcon ?? const Icon(Icons.pause_rounded)
-              : playIcon ?? const Icon(Icons.play_arrow_rounded);
+              ? pauseIcon ??
+                  Icon(
+                    Icons.pause_rounded,
+                    size: theme?.iconsSize,
+                    color: theme?.iconsColor,
+                  )
+              : playIcon ??
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    size: theme?.iconsSize,
+                    color: theme?.iconsColor,
+                  );
         },
       ),
     );

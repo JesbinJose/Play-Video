@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:play_video/models/state.dart';
+import 'package:play_video/models/theme.dart';
 
 class EnterExitFullScreenButton extends StatelessWidget {
   EnterExitFullScreenButton({
@@ -7,11 +8,13 @@ class EnterExitFullScreenButton extends StatelessWidget {
     required this.state,
     this.fullScreen,
     this.exitFullScreen,
+    this.theme,
   });
 
   final VideoPlayerState state;
   final Widget? fullScreen;
   final Widget? exitFullScreen;
+  final PlayerTheme? theme;
   final ValueNotifier<bool> _isInFullScreen = ValueNotifier(false);
 
   @override
@@ -25,8 +28,18 @@ class EnterExitFullScreenButton extends StatelessWidget {
             _isInFullScreen.value = !v;
           },
           icon: v
-              ? exitFullScreen ?? const Icon(Icons.fullscreen_exit)
-              : fullScreen ?? const Icon(Icons.fullscreen),
+              ? exitFullScreen ??
+                  Icon(
+                    Icons.fullscreen_exit,
+                    size: theme?.iconsSize,
+                    color: theme?.iconsColor,
+                  )
+              : fullScreen ??
+                  Icon(
+                    Icons.fullscreen,
+                    size: theme?.iconsSize,
+                    color: theme?.iconsColor,
+                  ),
         );
       },
     );

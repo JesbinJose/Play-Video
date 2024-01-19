@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:play_video/widgets/reusable/unlock_button.dart';
 
 class LockScreen extends StatelessWidget {
   const LockScreen({
@@ -22,14 +23,7 @@ class LockScreen extends StatelessWidget {
         ),
         child: Align(
           alignment: Alignment.topRight,
-          child: IconButton(
-            onPressed: () {
-              lockNotifier.value = false;
-            },
-            icon: const Icon(
-              Icons.lock_open,
-            ),
-          ),
+          child: UnLockButton(lockNotifier: lockNotifier),
         ),
       ),
     );
