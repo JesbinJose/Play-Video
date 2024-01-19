@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:play_video/function/timer.dart';
 import 'package:play_video/models/state.dart';
@@ -21,11 +20,31 @@ class OverlayHiddenControls extends StatelessWidget {
       child: StreamBuilder(
         stream: state.stream.position,
         builder: (context, snapshot) {
+          final double speed = state.state.rate;
           return GestureDetector(
             onTap: () => d.run(),
+            onLongPressStart: (details) {
+              if (details.localPosition.dx <
+                  MediaQuery.sizeOf(context).width / 4) {
+                state.setSpeed(speed - 0.5);
+              } else if (3*(MediaQuery.sizeOf(context).width/4) <
+                  (details.localPosition.dx)) {
+                state.setSpeed(speed + 0.5);
+              } else {
+                state.playOrPause();
+              }
+            },
+            onLongPressEnd: (details) {
+              if (details.localPosition.dx <
+                      MediaQuery.sizeOf(context).width / 4 ||
+                  3*(MediaQuery.sizeOf(context).width/4) < details.localPosition.dx) {
+                state.setSpeed(speed);
+              } else {
+                state.playOrPause();
+              }
+            },
             onDoubleTapDown: (details) {
-              final widthPart =
-                  MediaQuery.sizeOf(context).width / 4;
+              final widthPart = MediaQuery.sizeOf(context).width / 4;
               final duration = snapshot.data?.inSeconds ?? 0;
               if (details.localPosition.dx < widthPart) {
                 state.seek(
@@ -43,29 +62,28 @@ class OverlayHiddenControls extends StatelessWidget {
                 state.playOrPause();
               }
             },
-            onVerticalDragUpdate: (details) async{
+            onVerticalDragUpdate: (details) async {
               if (details.localPosition.dx <
                   MediaQuery.sizeOf(context).width / 2) {
-                final movement = ((details.localPosition.dy / 0.9) /
-                        context.size!.height)
-                    .clamp(0, 1.0);
+                final movement =
+                    ((details.localPosition.dy / 0.9) / context.size!.height)
+                        .clamp(0, 1.0);
                 await state.setBrightness(1 - movement.toDouble());
               } else {
-                final movement = ((details.localPosition.dy / 0.9) /
-                        context.size!.height)
-                    .clamp(0, 1.0);
+                final movement =
+                    ((details.localPosition.dy / 0.9) / context.size!.height)
+                        .clamp(0, 1.0);
                 await state.volume.setVolume(1 - movement.toDouble());
               }
             },
             onHorizontalDragUpdate: (details) {
               if (!state.isPlaying) state.play();
-              final newValue =
-                  (details.localPosition.dx / context.size!.width)
-                      .clamp(0.0, 1.0);
-              final seekTo =
-                  newValue * state.state.duration.inMilliseconds;
+              final newValue = (details.localPosition.dx / context.size!.width)
+                  .clamp(0.0, 1.0);
+              final seekTo = newValue * state.state.duration.inMilliseconds;
               state.seek(Duration(milliseconds: seekTo.toInt()));
             },
+            
           );
         },
       ),
