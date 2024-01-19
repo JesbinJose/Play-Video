@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:play_video/models/notifiers.dart';
 
 class UIOperations {
   final bool isPlaying;
@@ -17,9 +18,14 @@ class UIOperations {
   /// [isPlay] is a valueNotifier notifies when video state change from play and pause
   late ValueNotifier<bool> isPlay = ValueNotifier(isPlaying);
 
+  /// fit notifier Notifies when BoxFit changes
+  final ValueNotifier<BoxFit> fitNotifier = AllNotifiers.fitNotifier;
 
-  late ValueNotifier<int> currentPlayingVideo = ValueNotifier(1);
-
+  /// Current video index
+  late ValueNotifier<int> currentPlayingVideo = ValueNotifier(0);
+  
+  /// Notfies when speed is changed
+  final ValueNotifier<double> speedNotifer = ValueNotifier(1);
 
   /// Lock the Player for reducing accidental touches
   void lock() => lockNotifier.value = true;

@@ -165,7 +165,10 @@ class VideoPlayerState extends UIOperations {
   /// ```dart
   /// setSpeed(1.0);// provide playback speed in double
   /// ```
-  Future<void> setSpeed(double speed) async => await _player.setRate(speed);
+  Future<void> setSpeed(double speed) async {
+    super.speedNotifer.value = speed;
+    await _player.setRate(speed);
+  }
 
   /// Enable or Disable the shuffle Default `false`.
   Future<void> setShuffle(bool shuffle) async =>
@@ -267,6 +270,8 @@ class VideoPlayerState extends UIOperations {
     super.moreOpacityNotifier.dispose();
     super.isPlay.dispose();
     super.currentPlayingVideo.dispose();
+    super.fitNotifier.dispose();
+    super.speedNotifer.dispose();
     _player.dispose();
     _state.dispose();
   }

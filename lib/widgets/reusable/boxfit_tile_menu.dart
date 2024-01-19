@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:play_video/models/notifiers.dart';
 import 'package:play_video/models/state.dart';
 import 'package:play_video/models/theme.dart';
 // import 'package:play_video/widgets/overlay/more_settings_widget.dart';
-
-final ValueNotifier<BoxFit> _fitNotifier = ValueNotifier(BoxFit.contain);
 
 class BoxFitControlTile extends StatelessWidget {
   const BoxFitControlTile({
     super.key,
     required this.state,
     required this.theme,
-    this.title= 'Size -',
+    this.title = 'Size -',
   });
 
   final VideoPlayerState state;
@@ -22,7 +21,7 @@ class BoxFitControlTile extends StatelessWidget {
     return SizedBox(
       height: 100,
       child: ValueListenableBuilder(
-        valueListenable: _fitNotifier,
+        valueListenable: AllNotifiers.fitNotifier,
         builder: (_, v, __) {
           List<BoxFit> fit = [
             BoxFit.contain,
@@ -46,7 +45,7 @@ class BoxFitControlTile extends StatelessWidget {
                 fit.length,
                 (index) => InkWell(
                   onTap: () {
-                    _fitNotifier.value = fit[index];
+                    AllNotifiers.fitNotifier.value = fit[index];
                     state.update(fit: fit[index]);
                   },
                   child: Padding(

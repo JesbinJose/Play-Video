@@ -4,6 +4,7 @@ library play_video;
 
 import 'package:flutter/material.dart';
 import 'package:play_video/models/controls.dart';
+import 'package:play_video/models/notifiers.dart';
 import 'package:play_video/models/play_video_controller.dart';
 import 'package:play_video/widgets/video_player.dart';
 
@@ -21,6 +22,7 @@ class PlayVideo extends StatelessWidget {
     this.padding,
     this.margin,
     this.videoBorderRadius = BorderRadius.zero,
+    this.fit = BoxFit.contain,
   }) {
     this.control = control ?? OverlayControls.deFault();
   }
@@ -31,10 +33,12 @@ class PlayVideo extends StatelessWidget {
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final Decoration decoration;
+  final BoxFit fit;
   final BorderRadiusGeometry videoBorderRadius;
 
   @override
   Widget build(BuildContext context) {
+    AllNotifiers.fitNotifier = ValueNotifier(fit);
     // main widget
     return Container(
       padding: padding,
