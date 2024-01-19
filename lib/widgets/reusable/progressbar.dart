@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:play_video/function/timer.dart';
-import 'package:play_video/models/state.dart';
+import 'package:play_video/play_video.dart';
 
 double _time = 0;
 
 class DefaultProgressBar extends StatelessWidget {
   final VideoPlayerState state;
   final Debouncer debouncer;
+  final ProgressBarTheme theme;
   const DefaultProgressBar({
     super.key,
     required this.state,
     required this.debouncer,
+    required this.theme,
   });
-
-  double _calculateValue(Duration position, Duration duration) {
-    if (position == Duration.zero) return _time;
-    _time = position.inMilliseconds / duration.inMilliseconds;
-    return _time;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +32,61 @@ class DefaultProgressBar extends StatelessWidget {
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: StreamBuilder<Duration>(
-            stream: state.stream.position,
-            builder: (context, snapshot) {
-              final position =
-                  snapshot.data != null ? snapshot.data! : Duration.zero;
-              final value = _calculateValue(position, state.state.duration);
-              return LinearProgressIndicator(
-                minHeight: 5,
-                value: value,
+          child: _dualProgressBar(
+            theme: theme,
+            currentPosition: state.stream.position,
+            bufferdPosition: state.stream.buffer,
+            state: state,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _dualProgressBar({
+    required Stream<Duration> currentPosition,
+    required Stream<Duration> bufferdPosition,
+    required VideoPlayerState state,
+    required ProgressBarTheme theme,
+  }) {
+    double calculateValue(Duration position, Duration duration) {
+      if (position == Duration.zero) return _time;
+      _time = position.inMilliseconds / duration.inMilliseconds;
+      return _time;
+    }
+    return Container(
+      width: double.infinity,
+      height: theme.progressbarHeight,
+      decoration: theme.backgroundStyle,
+      child: Stack(
+        children: [
+          StreamBuilder(
+            stream: bufferdPosition,
+            builder: (context, v) {
+              final position = v.data != null ? v.data! : Duration.zero;
+              final value = calculateValue(position, state.state.duration);
+              return FractionallySizedBox(
+                widthFactor: value,
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  decoration: theme.secondartStyle,
+                ),
               );
             },
           ),
-        ),
+          StreamBuilder(
+            stream: currentPosition,
+            builder: (context, v) {
+              final position = v.data != null ? v.data! : Duration.zero;
+              return FractionallySizedBox(
+                widthFactor: calculateValue(position, state.state.duration),
+                child: Container(
+                  decoration: theme.primaryStyle,
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

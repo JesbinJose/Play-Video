@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:play_video/function/format_duration.dart';
 import 'package:play_video/function/timer.dart';
-import 'package:play_video/models/state.dart';
+import 'package:play_video/models/controls.dart';
 import 'package:play_video/widgets/reusable/progressbar.dart';
 
 class ProgressPart extends StatelessWidget {
@@ -9,10 +9,12 @@ class ProgressPart extends StatelessWidget {
     super.key,
     required this.state,
     required this.d,
+    required this.theme,
   });
 
   final VideoPlayerState state;
   final Debouncer d;
+  final ProgressBarTheme theme;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +28,14 @@ class ProgressPart extends StatelessWidget {
               formatDuration(
                 snapshot.data ?? Duration.zero,
               ),
-              style: const TextStyle(fontSize: 10),
+              style: theme.progressTimeStyle,
             );
           },
         ),
         DefaultProgressBar(
           state: state,
           debouncer: d,
+          theme: theme,
         ),
         StreamBuilder(
           stream: state.stream.position,
@@ -43,7 +46,7 @@ class ProgressPart extends StatelessWidget {
               '- ${formatDuration(
                 duration,
               )}',
-              style: const TextStyle(fontSize: 10),
+              style: theme.progressTimeStyle,
             );
           },
         ),

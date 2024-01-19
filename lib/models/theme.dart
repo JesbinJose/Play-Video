@@ -23,9 +23,6 @@ class PlayerTheme {
   /// Text style of menu items title
   final TextStyle menuItemTitleStyle;
 
-  /// Text style of progresstime
-  final TextStyle progressTimeStyle;
-
   /// [PlayerTheme] has been defined defualt for all and it is in
   /// Black and White combination
   const PlayerTheme({
@@ -34,7 +31,6 @@ class PlayerTheme {
     this.progressBarTheme = const ProgressBarTheme(),
     this.backgroundColor = const Color.fromARGB(100, 0, 0, 0),
     this.menuItemStyle = const TextStyle(fontSize: 14),
-    this.progressTimeStyle = const TextStyle(fontSize: 14),
     this.menuItemTitleStyle = const TextStyle(fontSize: 16),
   });
 }
@@ -43,18 +39,37 @@ class PlayerTheme {
 /// ------------------
 /// Theme of the progress bar [ProgressBarTheme]
 class ProgressBarTheme {
-  // late ProgressBarType type;
-  /// main color of the progress bar
-  final Color progressColor;
+  /// Playing position style of the progress bar
+  final Decoration primaryStyle;
 
-  /// background color of the progress bar
-  final Color backgroundColor;
+  /// buffer style of the progress bar
+  final Decoration secondartStyle;
+
+  /// background style of the progress bar
+  final Decoration backgroundStyle;
+
+  /// Text style of progresstime
+  final TextStyle progressTimeStyle;
+
+  final double progressbarHeight;
 
   /// Progress Bar Theme
   /// ------------------
   /// Theme of the progress bar [ProgressBarTheme]
   const ProgressBarTheme({
-    this.progressColor = Colors.white70,
-    this.backgroundColor = Colors.white24,
+    this.primaryStyle = const BoxDecoration(
+      color: Colors.white70,
+    ),
+    this.secondartStyle = const BoxDecoration(
+      color: Colors.white24,
+    ),
+    this.backgroundStyle = const BoxDecoration(
+      color: Colors.black,
+    ),
+    this.progressTimeStyle = const TextStyle(
+      fontSize: 12,
+      color: Colors.white,
+    ),
+    this.progressbarHeight = 7,
   });
 }

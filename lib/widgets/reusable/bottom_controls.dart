@@ -23,7 +23,7 @@ class BottomControls extends StatelessWidget {
       color: theme.backgroundColor,
       child: Column(
         children: [
-          ProgressPart(state: state, d: d),
+          ProgressPart(state: state, d: d, theme: theme.progressBarTheme,),
           Row(
             children: [
               PreviousButton(state: state),
