@@ -20,10 +20,12 @@ class VideoPlayerState extends UIOperations {
   VideoPlayerState({
     required VideoState state,
     required VideoController controller,
+    required List<String> paths,
     required this.height,
     required this.width,
   }) : super(
           isPlaying: controller.player.state.playing,
+          paths: paths,
         ) {
     _state = state;
     _controller = controller;
@@ -91,10 +93,16 @@ class VideoPlayerState extends UIOperations {
   Future<void> move(int from, int to) async => await _player.move(from, to);
 
   /// Skip the current video
-  Future<void> next() async => await _player.next();
+  Future<void> next() async {
+    super.currentPlayingVideo.value++;
+    await _player.next();
+  }
 
   /// play the previously played video
-  Future<void> previous() async => await _player.previous();
+  Future<void> previous() async {
+    super.currentPlayingVideo.value--;
+    await _player.previous();
+  }
 
   /// remove video from the given list of videos by index
   Future<void> remove(int index) async => await _player.remove(index);

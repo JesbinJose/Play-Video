@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class PlayList {
   PlayList() {
@@ -7,12 +7,14 @@ class PlayList {
   Box? box;
   //it is for loading data base
   Future<void> loadDB() async {
+    try {
+      await Hive.initFlutter();
+    } catch (_) {}
     box ??= await Hive.openBox('playlist_db');
   }
 
   //its for create playlist
-  Future<void> addPlaylist(String playlistName,
-      {List<String>? list}) async {
+  Future<void> addPlaylist(String playlistName, {List<String>? list}) async {
     await box!.put(playlistName, list ?? []);
   }
 

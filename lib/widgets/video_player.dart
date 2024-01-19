@@ -52,6 +52,10 @@ class _VideoPlayerState extends State<VideoPlayer> {
         final VideoPlayerState s = VideoPlayerState(
           state: state,
           controller: controller,
+          paths: List.generate(
+            _controller.videos.videos.length,
+            (index) => _controller.videos.videos[index].uri,
+          ),
           height: widget.size.height,
           width: widget.size.width,
         );

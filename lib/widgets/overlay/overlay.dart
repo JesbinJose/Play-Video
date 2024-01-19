@@ -5,10 +5,7 @@ import 'package:play_video/models/theme.dart';
 import 'package:play_video/widgets/overlay/lock_screen.dart';
 import 'package:play_video/widgets/overlay/more_settings_widget.dart';
 import 'package:play_video/widgets/overlay/overlay_hidden_controls.dart';
-import 'package:play_video/widgets/progress_part.dart';
-import 'package:play_video/widgets/reusable/full_screen_toggle_button.dart';
-import 'package:play_video/widgets/reusable/play_pause_button.dart';
-import 'package:play_video/widgets/reusable/volume_toggle_button.dart';
+import 'package:play_video/widgets/reusable/reusable.dart';
 
 class OverlayPlayer extends StatelessWidget {
   const OverlayPlayer({
@@ -52,19 +49,8 @@ class OverlayPlayer extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              IconButton(
-                                onPressed: () => Navigator.pop(context),
-                                icon: const Icon(
-                                  Icons.arrow_back_ios_new_rounded,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  state.overlayOpacityNotifier.value = 0;
-                                  state.moreOpacityNotifier.value = 1;
-                                },
-                                icon: const Icon(Icons.more_horiz),
-                              ),
+                              const ExitButton(),
+                              MoreButton(state: state),
                             ],
                           ),
                           Row(
@@ -79,34 +65,7 @@ class OverlayPlayer extends StatelessWidget {
                               // if (!kIsWeb) ScreenShotButton(state: state),
                             ],
                           ),
-                          Container(
-                            color: theme.backgroundColor,
-                            child: Column(
-                              children: [
-                                ProgressPart(state: state, d: d),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () => state.previous(),
-                                      icon: const Icon(
-                                        Icons.skip_previous_rounded,
-                                      ),
-                                    ),
-                                    PlayPauseButton(state: state),
-                                    IconButton(
-                                      onPressed: () => state.next(),
-                                      icon: const Icon(
-                                        Icons.skip_next_rounded,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    DefaultMuteToggleButton(state: state),
-                                    EnterExitFullScreenButton(state: state),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                          BottomControls(theme: theme, state: state, d: d),
                         ],
                       ),
                     ),
@@ -121,3 +80,5 @@ class OverlayPlayer extends StatelessWidget {
     );
   }
 }
+
+

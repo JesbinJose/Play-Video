@@ -13,6 +13,11 @@ export 'state.dart';
 class PlayVideoController {
   /// [videos] Add all Videos As [Videos]
   final Videos videos;
+
+  /// Which Video Need to start play first 
+  final int startIndex;
+
+  /// aspectRatio of the Video which need to be shown
   final double? aspectRatio;
 
   /// [isAutoPlay] desides start video auto or manualy
@@ -42,6 +47,7 @@ class PlayVideoController {
   /// It must be given as a controller in the [PlayVideo]
   PlayVideoController({
     required this.videos,
+    this.startIndex = 0,
     this.isAutoPlay = true,
     this.startingDuration = Duration.zero,
     this.fit = BoxFit.none,
