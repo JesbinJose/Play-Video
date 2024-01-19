@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:play_video/models/state.dart';
 
-class MoreButton extends StatelessWidget {
-  const MoreButton({
+class LockScreenButton extends StatelessWidget {
+  const LockScreenButton({
     super.key,
     required this.state,
     this.child,
@@ -14,11 +14,8 @@ class MoreButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        state.overlayOpacityNotifier.value = 0;
-        state.moreOpacityNotifier.value = 1;
-      },
-      icon: child ?? const Icon(Icons.more_horiz),
+      onPressed: () => state.lockNotifier.value = true,
+      icon: child ?? const Icon(Icons.lock),
     );
   }
 }

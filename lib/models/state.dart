@@ -261,10 +261,12 @@ class VideoPlayerState extends UIOperations {
       );
 
   void dispose() {
-    lockNotifier.dispose();
-    overlayOpacityNotifier.dispose();
-    moreOpacityNotifier.dispose();
-    isPlay.dispose();
+    super.lockNotifier.dispose();
+    super.overlayOpacityNotifier.dispose();
+    super.moreOpacityNotifier.dispose();
+    super.isPlay.dispose();
+    super.currentPlayingVideo.dispose();
+    _player.dispose();
     _state.dispose();
   }
 }

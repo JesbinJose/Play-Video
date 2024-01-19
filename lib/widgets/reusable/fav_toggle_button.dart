@@ -7,13 +7,13 @@ class FavToggleButton extends StatelessWidget {
   final ValueNotifier<bool> _isFav = ValueNotifier(true);
   late FavouritesDataBase fav;
   final String path;
-  final Widget like;
-  final Widget unLike;
+  final Widget? like;
+  final Widget? unLike;
   FavToggleButton({
     required this.path,
     super.key,
-    this.like = const Icon(Icons.favorite),
-    this.unLike = const Icon(Icons.favorite_border),
+    this.like,
+    this.unLike,
   }) {
     fav = FavouritesDataBase();
     _isFav.value = fav.isFav(path);
@@ -33,7 +33,9 @@ class FavToggleButton extends StatelessWidget {
             }
             _isFav.value = !value;
           },
-          icon: value ? like : unLike,
+          icon: value
+              ? like ?? const Icon(Icons.favorite)
+              : unLike ?? const Icon(Icons.favorite_border),
         );
       },
     );

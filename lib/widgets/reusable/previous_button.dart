@@ -5,17 +5,20 @@ class PreviousButton extends StatelessWidget {
   const PreviousButton({
     super.key,
     required this.state,
+    this.child,
   });
 
   final VideoPlayerState state;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => state.previous(),
-      icon: const Icon(
-        Icons.skip_previous_rounded,
-      ),
+      icon: child ??
+          const Icon(
+            Icons.skip_previous_rounded,
+          ),
     );
   }
 }

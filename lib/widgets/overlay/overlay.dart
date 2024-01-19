@@ -5,6 +5,7 @@ import 'package:play_video/models/theme.dart';
 import 'package:play_video/widgets/overlay/lock_screen.dart';
 import 'package:play_video/widgets/overlay/more_settings_widget.dart';
 import 'package:play_video/widgets/overlay/overlay_hidden_controls.dart';
+import 'package:play_video/widgets/reusable/lock_screen_button.dart';
 import 'package:play_video/widgets/reusable/reusable.dart';
 
 class OverlayPlayer extends StatelessWidget {
@@ -56,11 +57,7 @@ class OverlayPlayer extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              IconButton(
-                                onPressed: () =>
-                                    state.lockNotifier.value = true,
-                                icon: const Icon(Icons.lock),
-                              ),
+                              LockScreenButton(state: state),
                               // const Spacer(),
                               // if (!kIsWeb) ScreenShotButton(state: state),
                             ],
@@ -80,5 +77,4 @@ class OverlayPlayer extends StatelessWidget {
     );
   }
 }
-
 

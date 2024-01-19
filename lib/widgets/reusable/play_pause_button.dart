@@ -5,13 +5,13 @@ class PlayPauseButton extends StatelessWidget {
   const PlayPauseButton({
     super.key,
     required this.state,
-    this.playIcon = const Icon(Icons.play_arrow_rounded),
-    this.pauseIcon = const Icon(Icons.pause_rounded),
+    this.playIcon,
+    this.pauseIcon,
   });
 
   final VideoPlayerState state;
-  final Widget playIcon;
-  final Widget pauseIcon;
+  final Widget? playIcon;
+  final Widget? pauseIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,9 @@ class PlayPauseButton extends StatelessWidget {
       icon: ValueListenableBuilder<bool>(
         valueListenable: state.isPlay,
         builder: (_, v, __) {
-          return v ? pauseIcon : playIcon;
+          return v
+              ? pauseIcon ?? const Icon(Icons.pause_rounded)
+              : playIcon ?? const Icon(Icons.play_arrow_rounded);
         },
       ),
     );

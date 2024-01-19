@@ -18,7 +18,7 @@ class DefaultProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GestureDetector(
+      child: GestureDetector(behavior:HitTestBehavior.opaque,
         onHorizontalDragUpdate: (details) {
           debouncer.run();
           final seekTo =

@@ -5,13 +5,13 @@ class DefaultMuteToggleButton extends StatelessWidget {
   const DefaultMuteToggleButton({
     super.key,
     required this.state,
-    this.muteWidget = const Icon(Icons.volume_off),
-    this.unMuteWidget = const Icon(Icons.volume_up),
+    this.muteWidget,
+    this.unMuteWidget,
   });
 
   final VideoPlayerState state;
-  final Widget muteWidget;
-  final Widget unMuteWidget;
+  final Widget? muteWidget;
+  final Widget? unMuteWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,9 @@ class DefaultMuteToggleButton extends StatelessWidget {
       builder: (_, value, __) {
         return IconButton(
           onPressed: () => state.volume.toggleMute(),
-          icon: value ? muteWidget : unMuteWidget,
+          icon: value
+              ? muteWidget ?? const Icon(Icons.volume_off)
+              : unMuteWidget ?? const Icon(Icons.volume_up),
         );
       },
     );
