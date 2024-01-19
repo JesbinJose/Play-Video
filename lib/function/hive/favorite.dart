@@ -4,9 +4,9 @@ class FavouritesDataBase {
   FavouritesDataBase() {
     if (_box == null) throw 'You need to initlize it before using';
   }
-  static Box? _box;
+  static late Box? _box;
   //it is for loading the favourite data base
-  static Future<void> loadDB() async {
+  static Future<void> init() async {
     try {
       await Hive.initFlutter();
     } catch (_) {}
