@@ -18,7 +18,7 @@ Add this to `pubspec.yaml` file in the project folder
 
 ```yaml
 dependencies:
-	play_video: ^0.0.1
+	play_video: ^1.0.0
 ```
 
 ### Android
