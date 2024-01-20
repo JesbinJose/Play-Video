@@ -30,6 +30,7 @@ class Volume {
 
   /// Set specific volume
   Future<void> setVolume(double volume) async {
+    if (volume != 0&&!muteNotifier.value) muteNotifier.value = true;
     await FlutterVolumeController.setVolume(volume);
   }
 

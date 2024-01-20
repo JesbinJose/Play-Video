@@ -28,8 +28,6 @@ class _VideoPlayerState extends State<VideoPlayer> {
     super.initState();
     _controller = widget.controller;
     player.open(Playlist(_controller.videos.videos));
-    if (!_controller.isAutoPlay) player.pause();
-    if (_controller.isAutoPlay) player.play();
     player.seek(_controller.startingDuration);
   }
 
@@ -49,6 +47,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
       aspectRatio: _controller.aspectRatio,
       wakelock: _controller.wakeLock,
       controls: (state) {
+        _controller.isAutoPlay ? player.play() : player.pause();
         final VideoPlayerState s = VideoPlayerState(
           state: state,
           controller: controller,

@@ -6,7 +6,7 @@ enum VideoType {
   network,
   assets,
   file,
-  memory,
+  // memory,
 }
 enum ProgressBarType{
   normal,

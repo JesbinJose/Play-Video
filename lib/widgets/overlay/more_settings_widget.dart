@@ -3,6 +3,7 @@ import 'package:play_video/models/state.dart';
 import 'package:play_video/models/theme.dart';
 import 'package:play_video/widgets/reusable/boxfit_tile_menu.dart';
 import 'package:play_video/widgets/reusable/more_settings_title.dart';
+import 'package:play_video/widgets/reusable/speed_control_tile.dart';
 
 class MoreSettingsWidget extends StatelessWidget {
   const MoreSettingsWidget({
@@ -35,11 +36,27 @@ class MoreSettingsWidget extends StatelessWidget {
                 color: Colors.black45,
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   MoreSettingsTitle(state: state, theme: theme),
-                  BoxFitControlTile(
-                    state: state,
-                    theme: theme,
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width*.8,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Divider(
+                          color: Colors.white12,
+                        ),
+                        BoxFitControlTile(state: state, theme: theme),
+                        const Divider(
+                          color: Colors.white12,
+                        ),
+                        SpeedControlTile(state: state, theme: theme),
+                        const Divider(
+                          color: Colors.white12,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

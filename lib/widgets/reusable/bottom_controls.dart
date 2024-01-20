@@ -3,7 +3,12 @@ import 'package:play_video/function/timer.dart';
 import 'package:play_video/models/state.dart';
 import 'package:play_video/models/theme.dart';
 import 'package:play_video/widgets/progress_part.dart';
-import 'reusable.dart';
+import 'package:play_video/widgets/reusable/fav_toggle_button.dart';
+import 'package:play_video/widgets/reusable/full_screen_toggle_button.dart';
+import 'package:play_video/widgets/reusable/next_button.dart';
+import 'package:play_video/widgets/reusable/play_pause_button.dart';
+import 'package:play_video/widgets/reusable/previous_button.dart';
+import 'package:play_video/widgets/reusable/volume_toggle_button.dart';
 
 class BottomControls extends StatelessWidget {
   const BottomControls({

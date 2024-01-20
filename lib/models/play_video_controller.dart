@@ -4,6 +4,7 @@ import 'package:play_video/models/videos.dart';
 
 export 'videos.dart';
 export 'state.dart';
+export 'package:play_video/enums/enum.dart';
 
 /// [PlayVideoController] is the controller passed in the VideoPlayer widget
 /// It Contain common functionality and my differs according to the input
@@ -14,7 +15,7 @@ class PlayVideoController {
   /// [videos] Add all Videos As [Videos]
   final Videos videos;
 
-  /// Which Video Need to start play first 
+  /// Which Video Need to start play first
   final int startIndex;
 
   /// aspectRatio of the Video which need to be shown
@@ -50,12 +51,15 @@ class PlayVideoController {
     this.startIndex = 0,
     this.isAutoPlay = true,
     this.startingDuration = Duration.zero,
-    this.fit = BoxFit.none,
+    this.fit = BoxFit.contain,
     this.wakeLock = true,
     this.aspectRatio,
   }) {
     try {
       MediaKit.ensureInitialized();
     } catch (_) {}
+  }
+  void dispose() {
+    state.dispose();
   }
 }

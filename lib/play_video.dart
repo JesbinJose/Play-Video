@@ -10,6 +10,7 @@ import 'package:play_video/widgets/video_player.dart';
 
 export 'package:play_video/models/play_video_controller.dart';
 export 'package:play_video/models/controls.dart';
+export 'package:play_video/function/init.dart';
 
 class PlayVideo extends StatelessWidget {
   PlayVideo({

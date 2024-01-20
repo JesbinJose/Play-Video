@@ -8,7 +8,7 @@ class HistroyDataBase {
   static Box? _box;
 
   /// Load the history data base
-  Future<void> loadDB() async {
+  static Future<void> init() async {
     try {
       await Hive.initFlutter();
       Hive.registerAdapter(HistoryAdapter());

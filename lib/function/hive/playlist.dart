@@ -6,7 +6,7 @@ class PlayList {
   }
   static Box? _box;
   //it is for loading data base
-  Future<void> init() async {
+  static Future<void> init() async {
     try {
       await Hive.initFlutter();
     } catch (_) {}

@@ -5,8 +5,10 @@ import 'package:play_video/models/theme.dart';
 import 'package:play_video/widgets/overlay/lock_screen.dart';
 import 'package:play_video/widgets/overlay/more_settings_widget.dart';
 import 'package:play_video/widgets/overlay/overlay_hidden_controls.dart';
+import 'package:play_video/widgets/reusable/bottom_controls.dart';
+import 'package:play_video/widgets/reusable/exit_button.dart';
 import 'package:play_video/widgets/reusable/lock_screen_button.dart';
-import 'package:play_video/widgets/reusable/reusable.dart';
+import 'package:play_video/widgets/reusable/more_button.dart';
 
 class OverlayPlayer extends StatelessWidget {
   const OverlayPlayer({
@@ -55,11 +57,25 @@ class OverlayPlayer extends StatelessWidget {
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               LockScreenButton(state: state),
-                              // const Spacer(),
-                              // if (!kIsWeb) ScreenShotButton(state: state),
+                              StreamBuilder(
+                                  stream: state.stream.buffering,
+                                  builder: (_, v) {
+                                    final bool value = v.data ?? false;
+                                    return Visibility(
+                                      visible: value,
+                                      child: const Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                              const SizedBox(width: 20),
                             ],
                           ),
                           BottomControls(theme: theme, state: state, d: d),
@@ -77,4 +93,3 @@ class OverlayPlayer extends StatelessWidget {
     );
   }
 }
-

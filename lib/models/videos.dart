@@ -93,7 +93,7 @@ class Videos {
         this.videos.addAll(
               List.generate(
                 videos.length,
-                (index) => Media(result[index].toString()),
+                (index) => Media(videos[index]),
               ),
             );
     }

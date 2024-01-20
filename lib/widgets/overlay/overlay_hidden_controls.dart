@@ -14,20 +14,20 @@ class OverlayHiddenControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double speed = state.state.rate;
     return SizedBox(
       height: state.height,
       width: state.width,
       child: StreamBuilder(
         stream: state.stream.position,
         builder: (context, snapshot) {
-          final double speed = state.state.rate;
           return GestureDetector(
             onTap: () => d.run(),
             onLongPressStart: (details) {
               if (details.localPosition.dx <
                   MediaQuery.sizeOf(context).width / 4) {
                 state.setSpeed(speed - 0.5);
-              } else if (3*(MediaQuery.sizeOf(context).width/4) <
+              } else if (3 * (MediaQuery.sizeOf(context).width / 4) <
                   (details.localPosition.dx)) {
                 state.setSpeed(speed + 0.5);
               } else {
@@ -37,7 +37,8 @@ class OverlayHiddenControls extends StatelessWidget {
             onLongPressEnd: (details) {
               if (details.localPosition.dx <
                       MediaQuery.sizeOf(context).width / 4 ||
-                  3*(MediaQuery.sizeOf(context).width/4) < details.localPosition.dx) {
+                  3 * (MediaQuery.sizeOf(context).width / 4) <
+                      details.localPosition.dx) {
                 state.setSpeed(speed);
               } else {
                 state.playOrPause();
@@ -83,7 +84,6 @@ class OverlayHiddenControls extends StatelessWidget {
               final seekTo = newValue * state.state.duration.inMilliseconds;
               state.seek(Duration(milliseconds: seekTo.toInt()));
             },
-            
           );
         },
       ),

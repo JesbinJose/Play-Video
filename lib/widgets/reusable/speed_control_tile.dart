@@ -1,35 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:play_video/models/notifiers.dart';
 import 'package:play_video/models/state.dart';
 import 'package:play_video/models/theme.dart';
-// import 'package:play_video/widgets/overlay/more_settings_widget.dart';
 
-class BoxFitControlTile extends StatelessWidget {
-  const BoxFitControlTile({
+class SpeedControlTile extends StatelessWidget {
+  const SpeedControlTile({
     super.key,
     required this.state,
+    this.title = 'Speed -',
     required this.theme,
-    this.title = 'Size -',
   });
 
   final VideoPlayerState state;
-  final PlayerTheme theme;
   final String title;
+  final PlayerTheme theme;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: ValueListenableBuilder(
-        valueListenable: AllNotifiers.fitNotifier,
+        valueListenable: state.speedNotifer,
         builder: (_, v, __) {
-          List<BoxFit> fit = [
-            BoxFit.contain,
-            BoxFit.cover,
-            BoxFit.fill,
-          ];
+          List<double> speed = [0.5, 1.0, 1.5, 2];
           return Row(
             children: [
               Padding(
@@ -42,28 +34,33 @@ class BoxFitControlTile extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: MediaQuery.sizeOf(context).width * .55,
+                width: MediaQuery.sizeOf(context).width*.55,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
                       ...List.generate(
-                        fit.length,
+                        speed.length,
                         (index) => InkWell(
                           onTap: () {
-                            AllNotifiers.fitNotifier.value = fit[index];
-                            state.update(fit: fit[index]);
+                            state.setSpeed(speed[index]);
+                            state.play();
+                            state.moreOpacityNotifier.value = 0.0;
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            child: Text(
-                              fit[index].name,
-                              style: fit.indexOf(v) == index
-                                  ? theme.menuSelectedItemStyle
-                                  : theme.menuItemStyle,
-                            ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                ),
+                                child: Text(
+                                  '${speed[index]}x',
+                                  style: speed.indexOf(v) == index
+                                      ? theme.menuSelectedItemStyle
+                                      : theme.menuItemStyle,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
